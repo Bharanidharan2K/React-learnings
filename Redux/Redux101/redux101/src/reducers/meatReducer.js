@@ -22,7 +22,7 @@ export default (state = seedData, action)=> {
     console.log(action);
     if(action.type === "updateMeat"){
         console.log("I care about this updateMeat");
-        const newState = [...state];
+        let newState = [...state];
         if(action.payload.operation === "+"){
             newState[action.payload.index].quantity++;
         }
@@ -31,5 +31,12 @@ export default (state = seedData, action)=> {
         }
         return newState;
     }
-    return state;
+    else if(action.type === "clearInventory"){
+        let newState = [...state];
+        newState.forEach((item, i) =>{
+            item.quantity = 0;
+        })
+        return newState;
+    }
+    else return state;
 }
