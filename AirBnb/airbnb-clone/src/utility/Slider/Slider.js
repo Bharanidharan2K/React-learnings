@@ -1,10 +1,25 @@
 import React, { Component } from "react";
 import './Slider.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import SlickSlider from 'react-slick';
 
 class Slider extends Component{
     render(){
+        const settings = {
+            dots: false,
+            infinite: true,
+            speed: 500,
+            arrow: true,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+        }
         return(
-            <h1>Slider</h1>
+            <div className="slick">
+                <SlickSlider {...settings}>
+                    {this.props.elements}
+                </SlickSlider>
+            </div>
         )
     }
 }
