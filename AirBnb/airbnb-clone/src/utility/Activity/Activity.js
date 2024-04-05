@@ -9,7 +9,7 @@ class Activity extends Component{
         return(
             <div className="activity">
                 <Link to={`/activity/${id}`}>
-                    <img src={image} />
+                    <img src={image} alt='img'/>
                     <div className="activity-type">{activityType}</div>
                     <div className="title">{title}</div>
                     <div className="cost">From ${cost}/person</div>

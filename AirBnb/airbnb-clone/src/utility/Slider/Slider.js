@@ -11,7 +11,7 @@ class Slider extends Component{
             infinite: true,
             speed: 500,
             arrow: true,
-            slidesToShow: 5,
+            slidesToShow: 4,
             slidesToScroll: 1,
         }
         return(
