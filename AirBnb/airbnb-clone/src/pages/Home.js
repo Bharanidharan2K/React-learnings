@@ -60,7 +60,9 @@ class Home extends Component {
 
 
   render() {
-    if (this.state.cities.length === 0 || (!this.state.recommendedVenues.venues)) {
+    if (this.state.cities.length === 0 || (!this.state.recommendedVenues.venues) ||
+      (!this.state.europeCities.cities) || (!this.state.asiaCities.cities) || 
+      (!this.state.exoticCities.cities) || this.state.activities.length === 0) {
       return (<Spinner />)
     }
 
@@ -91,7 +93,7 @@ class Home extends Component {
           <Cities cities={this.state.exoticCities.cities} header={this.state.exoticCities.header} />
         </div>
         <div className="col s12">
-            <Venues venues={this.state.recommendedVenues.venues} header={this.state.recommendedVenues.header} />
+          <Venues venues={this.state.recommendedVenues.venues} header={this.state.recommendedVenues.header} />
         </div>
       </div>
     </>
