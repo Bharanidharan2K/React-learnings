@@ -48,7 +48,7 @@ class SingleFullVenue extends Component{
         return(
             <div className="row single-venue">
                 <div className="col s12 center">
-                    <img src={this.state.singleVenue.imageUrl} />
+                    <img className="image" src={this.state.singleVenue.imageUrl} />
                 </div>
                 <div className="col s8 location-details offset-s2">
                     <div className="col s8 left-details">

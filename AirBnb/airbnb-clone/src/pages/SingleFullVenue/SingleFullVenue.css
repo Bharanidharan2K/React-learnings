@@ -74,3 +74,8 @@
     margin-bottom: 20px;
 }
 
+.single-venue .image {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+}

@@ -84,6 +84,9 @@ class Home extends Component {
           <Activities activities={this.state.activities} header="Today Activity" />
         </div>
         <div className="col s12">
+          <Venues venues={this.state.recommendedVenues.venues} header={this.state.recommendedVenues.header} />
+        </div>
+        <div className="col s12">
           <Cities cities={this.state.europeCities.cities} header={this.state.europeCities.header} />
         </div>
         <div className="col s12">
@@ -91,9 +94,6 @@ class Home extends Component {
         </div>
         <div className="col s12">
           <Cities cities={this.state.exoticCities.cities} header={this.state.exoticCities.header} />
-        </div>
-        <div className="col s12">
-          <Venues venues={this.state.recommendedVenues.venues} header={this.state.recommendedVenues.header} />
         </div>
       </div>
     </>
