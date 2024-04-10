@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import './Login.css';
 import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import openModal from "../../actions/openModal";
@@ -48,7 +49,7 @@ class SignUp extends Component{
                     </div>
                     {this.state.lowerPartOfForm}
                     <div className="divider"></div>
-                    <div>Already have an account? <span><a onClick={()=>{this.props.openModal('open', <Login />)}}>Login</a></span></div>
+                    <div>Already have an account? <span className="pointer"><a onClick={()=>{this.props.openModal('open', <Login />)}}>Login</a></span></div>
                 </form>
             </div>
         )

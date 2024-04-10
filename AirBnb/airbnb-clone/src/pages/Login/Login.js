@@ -20,7 +20,7 @@ class Login extends Component{
                     <input type="password" className="browser-default" placeholder="Password" />
                     <button className="sign-up-button">Login</button>
                     <div className="divider"></div>
-                    <div>Don't have an account? <span><a onClick={()=>{this.props.openModal('open', <SignUp />)}}>Sign up</a></span></div>
+                    <div>Don't have an account? <span className="pointer"><a onClick={()=>{this.props.openModal('open', <SignUp />)}}>Sign up</a></span></div>
                 </form>
             </div>
         )

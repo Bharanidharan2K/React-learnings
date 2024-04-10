@@ -26,8 +26,8 @@ class NavBar extends Component{
                             <li><Link to="/">$ USD</Link></li>
                             <li><Link to="/">Become a host</Link></li>
                             <li><Link to="/">Help</Link></li>
-                            <li onClick={()=>{this.props.openModal('open', <SignUp />)}}>Sign up</li>
-                            <li onClick={()=>{this.props.openModal('open', <Login />)}}>Log in</li>
+                            <li className="login-signup" onClick={()=>{this.props.openModal('open', <SignUp />)}}>Sign up</li>
+                            <li className="login-signup" onClick={()=>{this.props.openModal('open', <Login />)}}>Log in</li>
                         </ul>
                     </div>
                 </nav>
