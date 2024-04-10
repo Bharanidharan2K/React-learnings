@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import { bindActionCreators } from "redux";
 import openModal from "../../actions/openModal";
 import Login from "./Login";
+import axios from 'axios';
+import swal from "sweetalert";
 
 class SignUp extends Component{
     state = {
@@ -32,10 +34,47 @@ class SignUp extends Component{
         })
     }
 
-    submitLogin = (e) =>{
+    submitLogin = async(e) =>{
         e.preventDefault();
-        console.log("Email ", this.state.email)
-        console.log("Password ", this.state.password)
+        // console.log("Email ", this.state.email)
+        // console.log("Password ", this.state.password)
+        if(!this.state.email || !this.state.password){
+            swal({
+                title: "Invalid email/password",
+                text: "Please provide a valid email and password",
+                icon: "warning"
+              });
+        }
+        else{
+            const url = `${window.apiHost}/users/signup`;
+            const data = {
+                email : this.state.email,
+                password : this.state.password
+            }
+            const resp = await axios.post(url,data);  
+            const token = resp.data.token;
+            if(resp.data.msg === "userExists"){
+                swal({
+                    title: "Email exist",
+                    text: "The Email you provided is already registered",
+                    icon: "error"
+                  });
+            }
+            else if(resp.data.msg === "invalidData"){
+                swal({
+                    title: "Invalid email/password",
+                    text: "Please provide a valid email and password",
+                    icon: "warning"
+                  });
+            }
+            else if(resp.data.msg === "userAdded"){
+                swal({
+                    title: "Success!",
+                    icon: "success"
+                  });
+            }
+
+        }
     }
     render(){
         return(
