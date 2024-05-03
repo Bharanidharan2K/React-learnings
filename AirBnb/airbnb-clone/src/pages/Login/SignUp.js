@@ -6,6 +6,7 @@ import openModal from "../../actions/openModal";
 import Login from "./Login";
 import axios from 'axios';
 import swal from "sweetalert";
+import regAction from "../../actions/regAction";
 
 class SignUp extends Component{
     state = {
@@ -72,11 +73,13 @@ class SignUp extends Component{
                     title: "Success!",
                     icon: "success"
                   });
+                this.props.regAction(resp.data)
             }
 
         }
     }
     render(){
+        console.log(this.props.auth)
         return(
             <div className="login-form">
                 <form onSubmit={this.submitLogin}>
@@ -95,13 +98,20 @@ class SignUp extends Component{
     }
 }
 
+function mapStateToProps(state){
+    return{
+        auth : state.auth
+    }
+}
+
 function mapDispatchToProps(dispatcher){
     return bindActionCreators({
-        openModal : openModal
+        openModal : openModal,
+        regAction : regAction,
     }, dispatcher)
 }
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
 const SignUpInputFields = (props) =>{
     return(
