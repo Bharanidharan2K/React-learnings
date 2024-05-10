@@ -4,17 +4,34 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//Redux setup
 import { Provider } from 'react-redux';
 import { legacy_createStore as createStore, applyMiddleware } from 'redux';
 import rootReducer from './reducers/rootReducer';
 import reduxPromise from 'redux-promise'
 
-const theStore = applyMiddleware(reduxPromise)(createStore)(rootReducer);
+//Redux persist
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { PersistGate } from 'redux-persist/integration/react'
+import Spinner from './utility/Spinner/Spinner';
+
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+const theStore = applyMiddleware(reduxPromise)(createStore)(persistedReducer);
+const persistor = persistStore(theStore)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={theStore}>
-    <App />
+    <PersistGate loading={Spinner} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>
 );
 
