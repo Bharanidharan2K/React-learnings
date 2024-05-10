@@ -1,22 +1,30 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import './NavBar.css';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import openModal from "../../actions/openModal";
 import Login from "../../pages/Login/Login";
 import SignUp from "../../pages/Login/SignUp";
 
-class NavBar extends Component{
-  render(){
+class NavBar extends Component {
 
-    let navColor = 'transparent';
-    if(this.props.location.pathname !== '/'){
-        navColor = 'black'
+    componentDidUpdate(oldProps) {
+        console.log(oldProps);
+        if(oldProps.auth.token !== this.props.auth.token){
+            this.props.openModal('closed','')
+        }
     }
 
+    render() {
 
-    return(<div className="container-fluid nav">
+        let navColor = 'transparent';
+        if (this.props.location.pathname !== '/') {
+            navColor = 'black'
+        }
+
+
+        return (<div className="container-fluid nav">
             <div className="row">
                 <nav className={navColor}>
                     <div className="nav-wrapper">
@@ -26,21 +34,39 @@ class NavBar extends Component{
                             <li><Link to="/">$ USD</Link></li>
                             <li><Link to="/">Become a host</Link></li>
                             <li><Link to="/">Help</Link></li>
-                            <li className="login-signup" onClick={()=>{this.props.openModal('open', <SignUp />)}}>Sign up</li>
-                            <li className="login-signup" onClick={()=>{this.props.openModal('open', <Login />)}}>Log in</li>
+                            {this.props.auth.email
+                                ?
+                                <>
+                                    <li>Hello, {this.props.auth.email}</li>
+                                    <li>Logout</li>
+                                </>
+                                :
+                                <>
+                                    <li className="login-signup" onClick={() => { this.props.openModal('open', <SignUp />) }}>Sign up</li>
+                                    <li className="login-signup" onClick={() => { this.props.openModal('open', <Login />) }}>Log in</li>
+                                </>
+
+                            }
+
                         </ul>
                     </div>
                 </nav>
             </div>
         </div>
         )
-  }
+    }
 }
 
-function mapDispatchToProps(dispatcher){
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    }
+}
+
+function mapDispatchToProps(dispatcher) {
     return bindActionCreators({
-        openModal : openModal
+        openModal: openModal
     }, dispatcher)
 }
 
-export default connect(null, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
