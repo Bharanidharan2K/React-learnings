@@ -3,6 +3,10 @@ import './SingleFullVenue.css';
 import axios from "axios";
 import Point from "./Point";
 import Spinner from "../../utility/Spinner/Spinner";
+import { connect } from "react-redux";
+import openModal from "../../actions/openModal";
+import { bindActionCreators } from "redux";
+import Login from "../Login/Login";
 
 class SingleFullVenue extends Component{
     state = {
@@ -42,6 +46,7 @@ class SingleFullVenue extends Component{
     }
 
     render(){
+        console.log(this.props.auth);
         if(!this.state.singleVenue || this.state.points.length === 0){
             return(<Spinner />)
         }
@@ -89,7 +94,13 @@ class SingleFullVenue extends Component{
                             </select>
                         </div>
                         <div className="col s12 center">
-                            <button onClick={this.reserveNow} className="btn red accent-2">Reserve Now</button>
+                            {this.props.auth.token ?
+                                <button onClick={this.reserveNow} className="btn red accent-2">Reserve Now</button>
+                                :
+                                <div>You must log in to Reserve!
+                                    <button className="btn red accent-2" onClick={() => { this.props.openModal('open', <Login />)}}>Login</button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -98,4 +109,16 @@ class SingleFullVenue extends Component{
     }
 }
 
-export default SingleFullVenue;
+function mapStateToProps(state){
+    return{
+        auth: state.auth,
+    }
+}
+
+function mapDispatchToProps(dispatcher) {
+    return bindActionCreators({
+        openModal: openModal,
+    }, dispatcher)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleFullVenue);
