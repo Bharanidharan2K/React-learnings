@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import './Home.css';
 import SearchBox from "./SearchBox";
-import Spinner from "../utility/Spinner/Spinner"
+import Spinner from "../../utility/Spinner/Spinner"
 import axios from "axios";
-import Cities from "../utility/City/Cities";
-import Activities from "../utility/Activity/Actitvites";
-import Venues from "../utility/Venue/Venues";
+import Cities from "../../utility/City/Cities";
+import Activities from "../../utility/Activity/Actitvites";
+import Venues from "../../utility/Venue/Venues";
 
 class Home extends Component {
 
