@@ -29,3 +29,6 @@
 .booking td, .booking th{
     vertical-align: top;
 }
+.cancel-confirmation{
+    color: blue;
+}
