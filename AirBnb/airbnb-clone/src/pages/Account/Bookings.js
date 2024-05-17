@@ -6,7 +6,7 @@ import axios from "axios";
 
 function Bookings(props) {
 
-    const cancelBooking = async (bookingId, location) =>{
+    const cancelBooking = async (bid, location) =>{
         const cancelReservation = await swal({
             text: `Are you sure want to cancel your trip to ${location}`,
             icon: 'warning',
@@ -16,7 +16,7 @@ function Bookings(props) {
             const url = `${window.apiHost}/reservation/cancel`;
             const data = {
                 token : props.token,
-                bookingId,
+                bid,
             }
             const resp = await axios.post(url, data);
             if(resp.data.msg === "cancelled"){
