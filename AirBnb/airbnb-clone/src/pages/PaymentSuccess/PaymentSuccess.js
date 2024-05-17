@@ -83,7 +83,7 @@ class PaymentSuccess extends Component {
                                         <div className="right">${rd.totalPrice}</div>
                                     </div>
                                 </div>
-                                <div className="col m12 row">To rview or make changes to your reservation in the future, visit your <Link to="/account">account page</Link>.</div>
+                                <div className="col m12 row">To review or make changes to your reservation in the future, visit your <Link to="/account">account page</Link>.</div>
                                 <div className="col m12 resv-image"><img src={vd.imageUrl} /></div>
                             </div>
                         </div>
