@@ -16,10 +16,36 @@ class Account extends Component{
     }
 
     async componentDidMount(){
+        const accountUrl = `${window.apiHost}/users/getBookings`;
+        const data = {
+            token : this.props.auth.token,
+        }
+        const resp = await axios.post(accountUrl, data);
+        console.log(resp.data);
+        let pastBookings = [];
+        let upcomingBooking = [];
 
+        resp.data.forEach(booking => {
+            const today = moment();
+            const checkOutDate = moment(booking.checkOut);
+            const diffDate = checkOutDate.diff(today, "days");
+            if(diffDate < 0){
+                pastBookings.push(booking);
+            }
+            else{
+                upcomingBooking.push(booking);
+            }
+        });
+
+        this.setState({
+            pastBookings,
+            upcomingBooking,
+        })
     }
 
     render(){
+        const {pastBookings, upcomingBooking} = this.state;
+
         return(
             <div className="account container-fluid">
                 <AccountSideBar />
@@ -29,10 +55,10 @@ class Account extends Component{
                             <h1>Choose an option on the left!</h1>
                         } />
                         <Route exact path="/account/reservations/confirmed" render={()=>
-                            <Bookings />
+                            <Bookings type="upcoming" bookings={upcomingBooking} />
                         } />
                         <Route exact path="/account/reservations/past">
-                            <Bookings />
+                            <Bookings type="past" bookings={pastBookings}/>
                         </Route>
                         <Route exact path="/account/change-pass" component={ChangePassword} />
                     </div>
